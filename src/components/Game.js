@@ -1,11 +1,12 @@
 import React from "react";
 import Answer from "./Answer";
+import "../css/Game.css";
 
-function Game(answer) {
+function Game({ guess, lives }) {
   return (
     <div className="game-wrapper">
-      <div className="graphic"></div>
-      <div className="answer-wrapper">{<Answer answer={answer.answer} />}</div>
+      <div className="graphic">lives:{lives}</div>
+      <div className="answer-wrapper">{<Answer guess={guess} />}</div>
     </div>
   );
 }

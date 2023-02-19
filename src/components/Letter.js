@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Letter({ letter }) {
+function Letter({ letter, testChar }) {
+  const [clicked, setClicked] = useState(false);
+
   function handleClick(e) {
-    console.log(letter);
+    const targetClass = e.target.classList;
+    testChar(letter)
+      ? targetClass.add("included")
+      : targetClass.add("not-included");
+    setClicked(true);
   }
 
-  return <span onClick={handleClick}>{letter}</span>;
+  return <span onClick={!clicked ? handleClick : null}>{letter}</span>;
 }
 
 export default Letter;
