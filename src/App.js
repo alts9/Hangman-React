@@ -8,7 +8,7 @@ function App() {
   const answer = [..."DOCOMO"];
   const [guess, setGuess] = useState([]);
 
-  function createGuess() {
+  function createEmptyGuess() {
     const newGuess = answer.map((char) => {
       return (char = "_");
     });
@@ -16,7 +16,7 @@ function App() {
   }
 
   useEffect(() => {
-    createGuess();
+    createEmptyGuess();
   }, []);
 
   function replaceCorrectGuess(guessChar) {
@@ -55,8 +55,6 @@ function App() {
       console.log("You Win!");
     }
   }
-
-  
 
   return (
     <>

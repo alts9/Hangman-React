@@ -4,3 +4,16 @@
   align-items: center;
   justify-content: space-around;
 }
+
+.graphic {
+  height: 150px;
+  width: 150px;
+}
+
+.answer-wrapper span {
+  width: 25px;
+  font-size: 2.5rem;
+  margin-right: 10px;
+  display: inline-block;
+  text-align: center;
+}

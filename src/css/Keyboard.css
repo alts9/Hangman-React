@@ -19,7 +19,7 @@
 }
 
 .keyboard-row > .included {
-  color: rgb(32, 207, 55);
+  color: rgb(32, 207, 55, 0.3);
 }
 
 .keyboard-row > .included:hover {
@@ -27,7 +27,7 @@
 }
 
 .keyboard-row > .not-included {
-  color: rgb(255, 55, 55);
+  color: rgba(255, 55, 55, 0.25);
 }
 
 .keyboard-row > .not-included:hover {
