@@ -18,7 +18,7 @@ body {
   background-size: 2rem 2rem;
   background-position: -0.1rem -0.1rem;
   font-family: "Patrick Hand", cursive;
-  padding: 50px 0px;
+  padding: 30px 0px;
   color: var(--black);
   font-size: 2rem;
 }
@@ -27,4 +27,39 @@ h1 {
   margin: 0px;
   font-size: 6rem;
   letter-spacing: 0.3rem;
+  display: flex;
+  justify-content: center;
+}
+
+.description {
+  padding: 30px;
+}
+
+.btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-start {
+  background-color: transparent;
+  color: var(--black);
+  border: 1px solid var(--black);
+  font-family: inherit;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: grab;
+}
+
+.btn-start:hover {
+  box-shadow: rgba(0, 0, 0, 0.55) 1px 1px 2.6px;
+}
+
+#footer {
+  margin-top: 50px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+a {
+  color: var(--black);
 }

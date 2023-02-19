@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./css/App.css";
-import Keyboard from "./components/Keyboard";
 import Header from "./components/Header";
 import Game from "./components/Game";
+import Footer from "./components/Footer";
+import Intro from "./components/Intro";
 
 function App() {
   const answer = [..."DOCOMO"];
   const [guess, setGuess] = useState([]);
+  const [gameMode, setMode] = useState(false);
 
   function createEmptyGuess() {
     const newGuess = answer.map((char) => {
@@ -15,22 +17,21 @@ function App() {
     setGuess(newGuess);
   }
 
+  function changeMode() {
+    setMode(!gameMode);
+  }
+
   useEffect(() => {
     createEmptyGuess();
   }, []);
 
   function replaceCorrectGuess(guessChar) {
-    //get an array consist of index of guessed letter
     const charIndex = answer.reduce((arr, ansChar, i) => {
       if (ansChar === guessChar) arr.push(i);
       return arr;
     }, []);
     const newGuess = guess.map((char, index) => {
-      if (charIndex.includes(index)) {
-        return guessChar;
-      } else {
-        return char;
-      }
+      return charIndex.includes(index) ? guessChar : char;
     });
     setGuess(newGuess);
     checkWin(newGuess);
@@ -59,8 +60,14 @@ function App() {
   return (
     <>
       <Header />
-      <Game guess={guess} lives={lives} />
-      <Keyboard testChar={testChar} />
+      {/* <Game guess={guess} lives={lives} testChar={testChar} /> */}
+
+      {gameMode === true ? (
+        <Game guess={guess} lives={lives} />
+      ) : (
+        <Intro changeMode={changeMode} />
+      )}
+      <Footer />
     </>
   );
 }
