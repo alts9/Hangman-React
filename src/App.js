@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./css/App.css";
 import Header from "./components/Header";
-import Game from "./components/Game";
-import Footer from "./components/Footer";
 import Intro from "./components/Intro";
+import Game from "./components/Game";
+import Result from "./components/Result";
+import Footer from "./components/Footer";
 
 function App() {
   const answer = [..."DOCOMO"];
   const [guess, setGuess] = useState([]);
-  const [gameMode, setMode] = useState(false);
+  const [gameMode, setMode] = useState("result");
+
+  //temporary parameter for result component
+  const winRound = true;
+  const round = 5;
+  const totalWin = 3;
+  const streak = 2;
 
   function createEmptyGuess() {
     const newGuess = answer.map((char) => {
@@ -17,8 +24,9 @@ function App() {
     setGuess(newGuess);
   }
 
-  function changeMode() {
-    setMode(!gameMode);
+  function changeMode(mode) {
+    const newMode = mode;
+    setMode(newMode);
   }
 
   useEffect(() => {
@@ -42,10 +50,10 @@ function App() {
   function testChar(char) {
     if (answer.includes(char)) {
       replaceCorrectGuess(char);
-
       return true;
     } else {
       const newLives = lives - 1;
+      checkLose(newLives);
       setLives(newLives);
       return false;
     }
@@ -57,16 +65,35 @@ function App() {
     }
   }
 
+  function checkLose(lives) {
+    if (lives === 0) {
+      console.log("You lose!");
+    }
+  }
+
   return (
     <>
       <Header />
-      {/* <Game guess={guess} lives={lives} testChar={testChar} /> */}
-
-      {gameMode === true ? (
-        <Game guess={guess} lives={lives} />
+      {/* {gameMode === true ? (
+        <Game guess={guess} lives={lives} testChar={testChar} />
       ) : (
         <Intro changeMode={changeMode} />
-      )}
+      )} */}
+      {
+        {
+          intro: <Intro changeMode={changeMode} />,
+          game: <Game guess={guess} lives={lives} testChar={testChar} />,
+          result: (
+            <Result
+              answer={answer}
+              winRound={winRound}
+              round={round}
+              streak={streak}
+              totalWin={totalWin}
+            />
+          ),
+        }[gameMode]
+      }
       <Footer />
     </>
   );

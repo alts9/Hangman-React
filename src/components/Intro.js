@@ -2,7 +2,7 @@ import React from "react";
 
 function Description({ changeMode }) {
   function handleClick() {
-    changeMode();
+    changeMode("game");
   }
   return (
     <>
@@ -12,7 +12,7 @@ function Description({ changeMode }) {
         with {"<"}7 mistakes.
       </div>
       <div className="btn-wrapper">
-        <button onClick={handleClick} className="btn-start">
+        <button onClick={handleClick} className="btn btn-start">
           Start Playing
         </button>
       </div>
