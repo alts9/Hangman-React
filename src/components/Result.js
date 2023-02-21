@@ -4,7 +4,7 @@ function Result({ answer, winRound, round, streak, totalWin }) {
   return (
     <div className="result-wrapper">
       <div className="result">
-        {winRound ? "Congrats, you win" : "You lose"}
+        {winRound ? "Congrats, you win.." : "Sorry, you lose.."}
       </div>
       <div className="answer">
         <span>Answer:</span> <span>{answer}</span>

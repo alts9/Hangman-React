@@ -4,17 +4,17 @@ import "../css/Game.css";
 import Graphic from "./Graphic";
 import Keyboard from "./Keyboard";
 
-function Game({ guess, lives, testChar }) {
+function Game({ guess, lives, testChar, reset }) {
   return (
     <>
       {" "}
       <div className="game-wrapper">
         <div className="graphic">
-          <Graphic lives={lives} />
+          <Graphic lives={lives} reset={reset} />
         </div>
         <div className="answer-wrapper">{<Answer guess={guess} />}</div>
       </div>
-      <Keyboard testChar={testChar} />
+      <Keyboard testChar={testChar} reset={reset} />
     </>
   );
 }

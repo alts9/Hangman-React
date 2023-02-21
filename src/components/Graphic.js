@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
+import React, { useEffect } from "react";
 import "../css/Graphic.css";
-function Graphic(lives) {
-  function hideElement(lives) {
+function Graphic({ lives, reset }) {
+  function showElement(lives) {
     switch (lives) {
       case 6:
         const rope = document.getElementById("rope");
@@ -35,7 +35,18 @@ function Graphic(lives) {
     }
   }
 
-  hideElement(lives.lives);
+  function resetGraphic() {
+    document.getElementById("rope").style.opacity = 0;
+    document.getElementById("head").style.opacity = 0;
+    document.getElementById("torso").style.opacity = 0;
+    document.getElementById("right-hand").style.opacity = 0;
+    document.getElementById("left-hand").style.opacity = 0;
+    document.getElementById("right-leg").style.opacity = 0;
+    document.getElementById("left-leg").style.opacity = 0;
+  }
+
+  useEffect(() => resetGraphic(false), [reset]);
+  useEffect(() => showElement(lives), [lives]);
 
   return (
     <>

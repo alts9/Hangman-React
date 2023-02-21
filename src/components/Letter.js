@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function Letter({ letter, testChar }) {
+function Letter({ letter, testChar, reset }) {
   const [clicked, setClicked] = useState(false);
-
   function handleClick(e) {
     const targetClass = e.target.classList;
-    testChar(letter)
-      ? targetClass.add("included")
-      : targetClass.add("not-included");
+    if (testChar(letter)) {
+      targetClass.add("included");
+    } else if (testChar(letter) === false) {
+      targetClass.add("not-included");
+    }
     setClicked(true);
   }
+
+  useEffect(() => setClicked(false), [reset]);
 
   return <span onClick={!clicked ? handleClick : null}>{letter}</span>;
 }
