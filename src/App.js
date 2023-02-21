@@ -10,14 +10,14 @@ function App() {
   const answer = [..."DOCOMO"];
   const [guess, setGuess] = useState([]);
   const [gameMode, setMode] = useState("game");
-  const [disableInput, setInput] = useState(true);
-  const [winRound, setWin] = useState(false);
+  const [disableInput, setInput] = useState(false);
+  const [winRound, setWinRound] = useState(false);
   const [lives, setLives] = useState(7);
-  const [reset, setReset] = useState(false);
+  const [reset, toggleReset] = useState(false);
+  const [round, setRound] = useState(1);
+  const [winCount, setwinCount] = useState(0);
+  const [streak, setStreak] = useState(0);
   //temporary parameter for result component
-  const round = 5;
-  const totalWin = 3;
-  const streak = 2;
 
   function createEmptyGuess() {
     const newGuess = answer.map((char) => {
@@ -49,7 +49,7 @@ function App() {
 
   function testChar(char) {
     //if game ends, disable input
-    if (disableInput) {
+    if (!disableInput) {
       if (answer.includes(char)) {
         replaceCorrectGuess(char);
         return true;
@@ -76,18 +76,34 @@ function App() {
   }
 
   function handleGameEnd(result) {
-    setInput(!disableInput);
+    setWinRound(result);
+    setInput(true);
     //add delay to wait for hanging animation before switch component
     const newMode = "result";
-    setTimeout(() => setMode(newMode), 100);
-    setWin(result);
+    setTimeout(() => {
+      setMode(newMode);
+      updateStats(result);
+    }, 1000);
+  }
+
+  function updateStats(result) {
+    if (result) {
+      const newWinCount = winCount + 1;
+      setwinCount(newWinCount);
+      const newStreak = streak + 1;
+      setStreak(newStreak);
+    } else {
+      setStreak(0);
+    }
   }
 
   function resetGame() {
     createEmptyGuess();
     setLives(7);
-    setReset(!reset);
-    //reset hangman
+    toggleReset(!reset);
+    setInput(false);
+    const newRound = round + 1;
+    setRound(newRound);
   }
   return (
     <>
@@ -101,6 +117,9 @@ function App() {
               lives={lives}
               testChar={testChar}
               reset={reset}
+              round={round}
+              streak={streak}
+              winCount={winCount}
             />
           ),
           result: (
@@ -109,7 +128,9 @@ function App() {
               winRound={winRound}
               round={round}
               streak={streak}
-              totalWin={totalWin}
+              winCount={winCount}
+              resetGame={resetGame}
+              changeMode={changeMode}
             />
           ),
         }[gameMode]

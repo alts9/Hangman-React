@@ -1,6 +1,19 @@
 import React from "react";
 
-function Result({ answer, winRound, round, streak, totalWin }) {
+function Result({
+  answer,
+  winRound,
+  round,
+  streak,
+  winCount,
+  resetGame,
+  changeMode,
+}) {
+  function handleReset() {
+    resetGame();
+    changeMode("game");
+  }
+
   return (
     <div className="result-wrapper">
       <div className="result">
@@ -12,14 +25,16 @@ function Result({ answer, winRound, round, streak, totalWin }) {
       <div className="record">
         <div className="win">
           <span>
-            Win: {totalWin}/{round}
+            Win: {winCount}/{round}
           </span>
         </div>
         <div className="streak">
           <span>Streak: {streak} </span>
         </div>
       </div>
-      <button className="btn btn-next">Next Round</button>
+      <button onClick={handleReset} className="btn btn-next">
+        Next Round
+      </button>
     </div>
   );
 }

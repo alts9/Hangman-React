@@ -3,11 +3,12 @@ import Answer from "./Answer";
 import "../css/Game.css";
 import Graphic from "./Graphic";
 import Keyboard from "./Keyboard";
+import StatusBar from "./StatusBar";
 
-function Game({ guess, lives, testChar, reset }) {
+function Game({ guess, lives, testChar, reset, round, streak, winCount }) {
   return (
     <>
-      {" "}
+      <StatusBar round={round} streak={streak} winCount={winCount} />
       <div className="game-wrapper">
         <div className="graphic">
           <Graphic lives={lives} reset={reset} />

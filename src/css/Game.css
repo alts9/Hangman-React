@@ -7,6 +7,12 @@
   padding-top: 30px;
 }
 
+.statusBar {
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .graphic {
   height: 150px;
   width: 150px;
