@@ -33,3 +33,16 @@
 .keyboard-row > .not-included:hover {
   text-decoration-color: transparent;
 }
+
+@media only screen and (max-width: 768px) {
+  .keyboard-row > span {
+    font-size: 2rem;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .keyboard-row > span {
+    padding: 0px 6px;
+    line-height: 2.75rem;
+  }
+}

@@ -26,7 +26,7 @@ function App() {
   function getNewAnswer() {
     const newAnswer = [...pickAnswer()];
     setAnswer(newAnswer);
-    console.log("newAnswer: " + newAnswer);
+    // console.log("newAnswer: " + newAnswer);
     createEmptyGuess(newAnswer);
   }
 

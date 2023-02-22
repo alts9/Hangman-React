@@ -9,7 +9,7 @@
 body {
   display: flex;
   align-items: center;
-  width: 50rem;
+  width: 46rem;
   margin: 0 auto;
   justify-content: center;
   border: 0.4rem solid var(--dark);
@@ -90,4 +90,44 @@ h1 {
 }
 a {
   color: var(--black);
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    width: 36rem;
+    font-size: 1.6rem;
+  }
+
+  h1 {
+    font-size: 5rem;
+  }
+
+  .result-wrapper .result {
+    font-size: 2.25rem;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  body {
+    width: 21rem;
+    font-size: 1.4rem;
+  }
+
+  h1 {
+    font-size: 4rem;
+  }
+
+  .result-wrapper .result {
+    font-size: 2rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    border-radius: 5px;
+    padding: 6px 18px;
+  }
+
+  #footer {
+    margin-top: 20px;
+  }
 }
