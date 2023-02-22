@@ -4,12 +4,13 @@ import Intro from "./components/Intro";
 import Game from "./components/Game";
 import Result from "./components/Result";
 import Footer from "./components/Footer";
+import { pickAnswer } from "./components/wordlist";
 import "./css/App.css";
 
 function App() {
-  const answer = [..."DOCOMO"];
+  const [answer, setAnswer] = useState([..."TEST"]);
   const [guess, setGuess] = useState([]);
-  const [gameMode, setMode] = useState("game");
+  const [gameMode, setMode] = useState("intro");
   const [disableInput, setInput] = useState(false);
   const [winRound, setWinRound] = useState(false);
   const [lives, setLives] = useState(7);
@@ -17,9 +18,19 @@ function App() {
   const [round, setRound] = useState(1);
   const [winCount, setwinCount] = useState(0);
   const [streak, setStreak] = useState(0);
-  //temporary parameter for result component
 
-  function createEmptyGuess() {
+  useEffect(() => {
+    getNewAnswer();
+  }, [round]);
+
+  function getNewAnswer() {
+    const newAnswer = [...pickAnswer()];
+    setAnswer(newAnswer);
+    console.log("newAnswer: " + newAnswer);
+    createEmptyGuess(newAnswer);
+  }
+
+  function createEmptyGuess(answer) {
     const newGuess = answer.map((char) => {
       return (char = "_");
     });
@@ -30,10 +41,6 @@ function App() {
     const newMode = mode;
     setMode(newMode);
   }
-
-  useEffect(() => {
-    createEmptyGuess();
-  }, []);
 
   function replaceCorrectGuess(guessChar) {
     const charIndex = answer.reduce((arr, ansChar, i) => {
@@ -83,7 +90,7 @@ function App() {
     setTimeout(() => {
       setMode(newMode);
       updateStats(result);
-    }, 1000);
+    }, 700);
   }
 
   function updateStats(result) {
@@ -98,7 +105,7 @@ function App() {
   }
 
   function resetGame() {
-    createEmptyGuess();
+    getNewAnswer();
     setLives(7);
     toggleReset(!reset);
     setInput(false);
@@ -136,7 +143,6 @@ function App() {
         }[gameMode]
       }
       <Footer />
-      <button onClick={resetGame}>Reset Game</button>
     </>
   );
 }
