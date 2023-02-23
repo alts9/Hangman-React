@@ -13,7 +13,7 @@ function App() {
   const [gameMode, setMode] = useState("intro");
   const [disableInput, setInput] = useState(false);
   const [winRound, setWinRound] = useState(false);
-  const [lives, setLives] = useState(7);
+  const [lives, setLives] = useState(8);
   const [reset, toggleReset] = useState(false);
   const [round, setRound] = useState(1);
   const [winCount, setwinCount] = useState(0);
@@ -42,7 +42,7 @@ function App() {
     setMode(newMode);
   }
 
-  function replaceCorrectGuess(guessChar) {
+  function insertCorrectGuess(guessChar) {
     const charIndex = answer.reduce((arr, ansChar, i) => {
       if (ansChar === guessChar) arr.push(i);
       return arr;
@@ -58,7 +58,7 @@ function App() {
     //if game ends, disable input
     if (!disableInput) {
       if (answer.includes(char)) {
-        replaceCorrectGuess(char);
+        insertCorrectGuess(char);
         return true;
       } else {
         const newLives = lives - 1;
@@ -106,7 +106,7 @@ function App() {
 
   function resetGame() {
     getNewAnswer();
-    setLives(7);
+    setLives(8);
     toggleReset(!reset);
     setInput(false);
     const newRound = round + 1;
