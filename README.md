@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+## Hangman
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Hangman is a game where players try to solve the hidden word by guessing what letters it contains.
+You win if you can get the answer with <8 mistakes.
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `npm start`
+## How it's made
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Components**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Aside from the header and footer, this app has 3 main components that are displayed alternatively:
 
-### `npm test`
+1. Intro, which explains the game rules
+2. Game, which contains:
+   1. Stats (round, number of wins, streak)
+   2. Illustration of hanged man
+   3. Container for the letter guessed
+   4. Onscreen keyboard
+3. Result, which shows the summary of the previous round.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Wordlist**
 
-### `npm run build`
+A wordlist can be easily obtained because it is popular in cybersecurity. I find one and narrow it down to 390 entries.
+To protect the word list, it has been reordered randomly and encoded with Base64 encoding. 
+A random word from the word list will be chosen, decoded, and then used as the answer.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Hanged man illustration**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+I used inline SVG for the illustration because it can be modified with CSS and DOM. Most SVG elements except the hanging pole are hidden
+and will be shown one by one for each wrong guess.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Mistakes Made and Lessons Learned 
 
-### `npm run eject`
+**Comparing Array**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Despite the fact that both arrays contain the same value, determining the result with `guessedAnswer === answer` always returns `false`. It turns out they are treated as different arrays.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+const a = [1, 2, 3];
+const b = [1, 2, 3];
+console.log(a === b); //false
+console.log(a === a); //true
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Solution: Normally, comparing arrays requires the programmer to create a function to compare each array element. I took the easier method of checking the occurrence of the underscore.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+['A', 'N', 'S', 'W', 'E', 'R'] // no underscore->round end, player win
+['A', 'N', '_', 'W', '_', 'R'] // underscore found-> round continue
+```
 
-## Learn More
+**setState nature**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+During development, I found that the setState hook wasn't immediately reflected.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+console.log(answer)  // output: 'ALIVE'
+setAnswer('BROOM')    
+console.log(answer)  // expected output: 'BROOM', real output: 'ALIVE'
+```
 
-### Code Splitting
+It turns out that this occurred due to the asynchronous nature of setState. This problem can be solved by using callbacks.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Interface**
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+During development, I use the word "TEST" as a sample answer. This causes problems when longer words are chosen as answers, because it take more space in the game interface and could potentially break the layout. Luckily, it can be solved by adjusting padding & font-size for smaller screens. It taught me to be more mindful about this kind of issue in the future.
