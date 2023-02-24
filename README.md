@@ -1,7 +1,12 @@
+<p align="center">
+<img src="https://user-images.githubusercontent.com/102517204/221152474-f92be415-f414-4b45-8137-104a53bc5d2e.png" >
+</p>
+
 ## Hangman
 
+
 Hangman is a game where players try to solve the hidden word by guessing what letters it contains.
-You win if you can get the answer with <8 mistakes.
+You win if you can get the answer with <8 mistakes. [Click here to start playing](alts9.github.io/Hangman-React/)
 
 
 
