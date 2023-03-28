@@ -6,7 +6,7 @@
 
 
 Hangman is a game where players try to solve the hidden word by guessing what letters it contains.
-You win if you can get the answer with <8 mistakes. [Click here to start playing](alts9.github.io/Hangman-React/)
+You win if you can get the answer with <8 mistakes.
 
 
 
